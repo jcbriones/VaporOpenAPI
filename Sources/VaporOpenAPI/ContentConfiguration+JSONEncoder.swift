@@ -9,7 +9,7 @@ import Vapor
 
 extension ContentConfiguration {
     /// The configured JSON encoder for the content configuration.
-    func jsonEncoder() throws -> JSONEncoder {
+    public func jsonEncoder() throws -> JSONEncoder {
         guard let encoder = try self
             .requireEncoder(for: .json)
                 as? JSONEncoder
@@ -17,6 +17,20 @@ extension ContentConfiguration {
             // This is an Abort since this is an error with a Vapor component.
             throw Abort(
                 .internalServerError, reason: "Couldn't get encoder for OpenAPI schema.")
+        }
+
+        return encoder
+    }
+
+    /// The configured JSON encoder for the content configuration.
+    public func jsonDecoder() throws -> JSONDecoder {
+        guard let encoder = try self
+            .requireDecoder(for: .json)
+                as? JSONDecoder
+        else {
+            // This is an Abort since this is an error with a Vapor component.
+            throw Abort(
+                .internalServerError, reason: "Couldn't get decoder for OpenAPI schema.")
         }
 
         return encoder
