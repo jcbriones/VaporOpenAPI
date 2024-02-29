@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.8
 
 import PackageDescription
 
@@ -13,10 +13,10 @@ let package = Package(
             targets: ["VaporOpenAPI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/vapor/vapor.git", from: "4.50.0"),
-        .package(url: "https://github.com/mattpolzin/VaporTypedRoutes.git", from: "0.9.0"),
-        .package(url: "https://github.com/mattpolzin/OpenAPIKit.git", branch: "release/3_0"),
-        .package(url: "https://github.com/jcbriones/OpenAPIReflection.git", branch: "main")
+        .package(url: "https://github.com/vapor/vapor.git", from: "4.86.0"),
+        .package(url: "https://github.com/mattpolzin/VaporTypedRoutes.git", from: "0.10.0"),
+        .package(url: "https://github.com/mattpolzin/OpenAPIKit.git", from: "3.0.0"),
+        .package(url: "https://github.com/mattpolzin/OpenAPIReflection.git", from: "2.0.0")
     ],
     targets: [
         .target(

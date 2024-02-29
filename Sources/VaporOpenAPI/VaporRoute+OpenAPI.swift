@@ -91,10 +91,16 @@ extension AbstractRouteContext {
 
                 // finally, handle binary files and give a wildly vague schema for anything else.
                 let schema: JSONSchema
-                if [OpenAPI.ContentType.any, .anyText, .css, .csv, .form, .html, .javascript, .json, .jsonapi, .multipartForm, .rtf, .txt, .xml, .yaml].contains(contentType) {
+                let stringLikeTypes: [OpenAPI.ContentType?] = [
+                    .any, .anyText, .css, .csv, .form, .html, .javascript, .json, .jsonapi, .multipartForm, .rtf, .txt, .xml, .yaml
+                ]
+                let binaryLikeTypes: [OpenAPI.ContentType?] = [
+                    .anyApplication, .anyAudio, .anyImage, .anyVideo, .bmp, .jpg, .mov, .mp3, .mp4, .mpg, .pdf, .rar, .tar, .tif, .zip
+                ]
+                if stringLikeTypes.contains(contentType) {
                     schema = .string
-                } else if [OpenAPI.ContentType.anyApplication, .anyAudio, .anyImage, .anyVideo, .bmp, .jpg, .mov, .mp3, .mp4, .mpg, .pdf, .rar, .tar, .tif, .zip].contains(contentType) {
-                    schema = .string(format: .binary)
+                } else if binaryLikeTypes.contains(contentType) {
+                    schema = .string(contentEncoding: .binary)
                 } else {
                     schema = .string
                 }
