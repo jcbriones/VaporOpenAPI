@@ -30,7 +30,7 @@ extension OpenAPIExampleProvider where Self: Encodable, Self: Sampleable {
     // Automatically implement the OpenAPI example for types conforming to Encodable and Sampleable.
     public static func openAPIExample(using encoder: JSONEncoder) throws -> AnyCodable? {
         let encodedSelf = try encoder.encode(sample)
-        return try ContentConfiguration.global.jsonDecoder().decode(AnyCodable.self, from: encodedSelf)
+        return try JSONDecoder().decode(AnyCodable.self, from: encodedSelf)
     }
 
     /// Get the OpenAPI schema for the `OpenAPIExampleProvider`.
