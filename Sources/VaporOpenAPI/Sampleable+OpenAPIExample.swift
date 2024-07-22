@@ -19,29 +19,29 @@ public protocol OpenAPIExampleProvider: OpenAPIEncodedSchemaType {
     static func openAPIExample(using encoder: JSONEncoder) throws -> AnyCodable?
 }
 
-public extension OpenAPIExampleProvider where Self: Encodable, Self: Sampleable {
+extension OpenAPIExampleProvider where Self: Encodable, Self: Sampleable {
     /// The example for the OpenAPI schema.
-    static func openAPIExample() throws -> AnyCodable? {
+    public static func openAPIExample() throws -> AnyCodable? {
         let encoder = try ContentConfiguration.global.openAPIJSONEncoder()
 
         return try self.openAPIExample(using: encoder)
     }
 
     // Automatically implement the OpenAPI example for types conforming to Encodable and Sampleable.
-    static func openAPIExample(using encoder: JSONEncoder) throws -> AnyCodable? {
+    public static func openAPIExample(using encoder: JSONEncoder) throws -> AnyCodable? {
         let encodedSelf = try encoder.encode(sample)
         return try ContentConfiguration.global.jsonDecoder().decode(AnyCodable.self, from: encodedSelf)
     }
 
     /// Get the OpenAPI schema for the `OpenAPIExampleProvider`.
-    static func openAPISchema() throws -> JSONSchema {
+    public static func openAPISchema() throws -> JSONSchema {
         let encoder = try ContentConfiguration.global.openAPIJSONEncoder()
 
         return try self.openAPISchema(using: encoder)
     }
 
     /// Get the OpenAPI schema for the `OpenAPIExampleProvider`.
-    static func openAPISchema(using encoder: JSONEncoder) throws -> JSONSchema {
+    public static func openAPISchema(using encoder: JSONEncoder) throws -> JSONSchema {
         return try genericOpenAPISchemaGuess(using: encoder)
     }
 }

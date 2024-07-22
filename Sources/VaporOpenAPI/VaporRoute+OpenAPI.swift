@@ -60,7 +60,20 @@ extension AbstractRouteContext {
 
                 let example = reverseEngineeredExample(for: responseTuple.responseBodyType, using: encoder)
 
-                // first handle things explicitly supporting OpenAPI
+                // first handle things where response type is referencable.
+                if let schema = (responseTuple.responseBodyType as? OpenAPIReferenceSchemaType.Type)?.openAPIReferenceSchema {
+                    return (
+                        statusCode,
+                        OpenAPI.Response(
+                            description: responseReason,
+                            content: [
+                                (contentType ?? .json): .init(schema: .init(schema), example: example)
+                            ]
+                        )
+                    )
+                }
+
+                // then handle things explicitly supporting OpenAPI
                 if let schema = try (responseTuple.responseBodyType as? OpenAPIEncodedSchemaType.Type)?.openAPISchema(using: encoder) {
                     return (
                         statusCode,
@@ -241,7 +254,8 @@ extension Vapor.Route {
             return nil
         }
 
-        let schema = try requestBodyType.openAPISchema(using: encoder)
+        let schema = try (requestBodyType as? OpenAPIReferenceSchemaType.Type)?.openAPIReferenceSchema ??
+        requestBodyType.openAPISchema(using: encoder)
 
         return OpenAPI.Request(
             content: [
