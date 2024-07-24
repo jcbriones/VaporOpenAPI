@@ -7,7 +7,7 @@
 
 import OpenAPIReflection
 
-public protocol OpenAPIReferenceSchemaType: OpenAPIEncodedSchemaType {
+public protocol OpenAPIReferenceSchemaType: OpenAPIEncodedSchemaType, Sendable {
     static var openAPIReferenceSchema: JSONSchema { get }
 }
 

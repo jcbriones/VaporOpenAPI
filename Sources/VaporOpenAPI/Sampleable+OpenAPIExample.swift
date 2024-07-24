@@ -12,7 +12,7 @@ import Sampleable
 import Vapor
 
 /// Types that provide an example for the OpenAPI definition.
-public protocol OpenAPIExampleProvider: OpenAPIEncodedSchemaType {
+public protocol OpenAPIExampleProvider: OpenAPIEncodedSchemaType, Sendable {
     /// The example for the OpenAPI schema.
     /// - Parameters:
     ///   - encoder: The encoder to use to generate the OpenAPI example with.
