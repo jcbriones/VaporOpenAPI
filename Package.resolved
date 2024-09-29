@@ -48,10 +48,10 @@
     {
       "identity" : "openapireflection",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mattpolzin/OpenAPIReflection.git",
+      "location" : "https://github.com/leogdion/OpenAPIReflection.git",
       "state" : {
-        "revision" : "aa9d56c75b913818c513a3b0a2cd716b8443e81e",
-        "version" : "2.0.0"
+        "branch" : "main",
+        "revision" : "971265d3e5eb4232fa1d9b409224eaf0bae296aa"
       }
     },
     {
